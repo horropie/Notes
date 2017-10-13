@@ -1,0 +1,89 @@
+1.1
+AI program=Intelligent Agent
+
+1.5
+Fully vs partially observable
+(agent has access to all the information he needs to perform vs there is hidden information like past actions he needs to have stored)
+Deterministic vs stochastic
+(chess vs dice)
+discrete vs continuous
+(set number of tasks vs infinite)
+benign vs adversarial
+(things that are maybe random but dont have an objective against you vs they have)
+
+1.8
+AI deals with uncertainty management
+Uncertainty stems from:
+	-sensor limits
+	-adversaries
+	-stochastic environments
+	- laziness
+	- ignorance
+
+1.9
+You build your model by using existing data. For example when you want to translate 
+something into another language you check the translation for regularities and
+choose the most like option in the sentence while having in mind the whole data set.
+
+
+2.2
+What is a problem?
+Consists of different functions:
+- Initial state S
+- Actions(number)->() (dependent or not dependent on the state)
+- Result (state, action)-> new state S'
+- Goaltest(S)-> True/False
+- Path cost(sequence of state action transitions)-> number (cost)
+	- dependent on the step cost fct (state, action, resulting state from action)->number
+
+2.3
+- actions move in the "state space" (the state of possible states)
+- in this example (Romania) the step cost is the length of the sum of all steps between start and end (in km)
+- you want to seperate the state out into three parts:
+	- frontier (furthest parts that has been explored)
+	- explored part "state space"
+	- unexplored part of the "state space"
+
+2.4
+defining a fct for solving problems: Tree search (superimposed a search tree over the state space)	
+- Starts of by defining the frontier to consist only of the initial state
+
+
+TREESEARCH(problem p) returns path
+frontier={[path(p.initial)]}, explored={} #
+loop: 
+	if frontier is empty: return FAIL
+	- path=remove_choice(frontier)
+	- S=path.end, add s to explored
+	- if S is a goal: return path
+	- for a in actions:
+		add [path + a ->Result(s,a)] to frontier (new state)
+		unless Results(s,a) in frontier / explored
+
+Breadth-First Search: Choosing always the shallowest/shortest path, always
+explores first the path with the least steps (in this ex.)
+
+2.5
+You keep track of the already explored states so the tree search 
+does not have to consider an old path at a conjuncture
+
+Example:
+First you check all the length one paths, then the length two paths and always
+add the "visited cities" to your explored list
+
+Cheapest First:
+If you go spec. by the cost of each step you have to consider that just because you made 
+for example two steps the program will calc your two steps as a single path and will add
+the km up. So the pr will maybe compare the km of the explored path with two steps 
+with single step. This is because of th lowest cost function
+
+2.18
+Different search poss.:
+	- Breadh-First (optimal)(complete) (meaning that is surely finds a goal in an infinite tree)
+	- Cheapest-First (optimal)(complete)
+	- Depth-First (longest path first)(not optimal)(not complete)
+
+2.20
+
+Depth-First Search saves a lot of storage esp when the history of nodes is not being saved
+
